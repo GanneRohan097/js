@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        button {
+            background-color: rgb(251, 248, 248);
+            color: rgb(92, 43, 132);
+            padding: 20px;
+            font-size: xx-large;
+            border-radius: 100px;
+            transition: transform 0.3s ease-in-out;
+            border: none;
+        }
+        button:hover {
+            cursor: pointer;
+            transform: scale(0.9);
+            
+        }
+        body,html{
+            
+            background-color: rgb(66, 194, 237);
+        }
+        .choice,.myscore,.compscore,.tie{
+            color: white;
+        }
+        .reset{
+            
+            padding: 15px;
+            background-color: rgb(66, 194, 237);
+            font-size: 50px;
+            padding-top: 5px;
+        }
+        h1{
+            padding-left: 40px;
+            padding-bottom: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="playGame('👊')">👊</button>
+    <button onclick="playGame('✋')">✋</button>
+    <button onclick="playGame('✌️')">✌️</button>
+    <button class="reset" onclick="reset()">⟳</button>
+    <h2 class="choice">Computer choice</h2>
+    <h1>SCORE</h1>
+    
+   
+    
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <td><h2>Your Score</h2></td>
+            <td><h2 class="myscore">0</h2></td>
+        </tr>
+        <tr>
+            <td><h2>Computer Score</h2></td>
+            <td><h3 class="compscore">0</h3></td>
+        </tr>
+        <tr>
+            <td><h2>Tie</h2></td>
+            <td><h3 class="tie">0</h3></td>
+        </tr>
+
+    </table>
+
+    <script>
+        // Global variables to track scores
+        let score = 0;
+        let computerscore = 0;
+        let tie = 0;
+        function reset(){
+            score = 0;
+            computerscore = 0;
+             tie = 0;
+
+            document.querySelector('.myscore').textContent = score;
+            document.querySelector('.compscore').innerHTML = `${computerscore}`;
+            document.querySelector('.tie').innerHTML = `${tie}`;
+        }
+
+        function playGame(playerChoice) {
+            let computer = Math.random();
+            let computerresult = '';
+            let result;
+
+            // Determine computer choice
+            if (computer >= 0 && computer < 1 / 3) {
+                computerresult = '👊';
+            } else if (computer >= 1 / 3 && computer < 2 / 3) {
+                computerresult = '✋';
+            } else {
+                computerresult ='✌️';
+            }
+
+            // Determine the result
+            if (playerChoice === computerresult) {
+                result = 'Tie';
+                tie++;
+            } else if (
+                (playerChoice === '👊' && computerresult === '✌️') ||
+                (playerChoice === '✋' && computerresult === '👊') ||
+                (playerChoice === '✌️' && computerresult === '✋')
+            ) {
+                result = 'You Won';
+                score++;
+            } else {
+                result = 'Computer Won';
+                computerscore++;
+            }
+
+            // Update scores in the HTML
+            document.querySelector('.choice').innerHTML = `Computer choice ${computerresult}`;
+            document.querySelector('.myscore').innerHTML = `${score}`;
+            document.querySelector('.compscore').innerHTML = `${computerscore}`;
+            document.querySelector('.tie').innerHTML = `${tie}`;
+
+            
+        }
+    </script>
+</body>
+</html>
